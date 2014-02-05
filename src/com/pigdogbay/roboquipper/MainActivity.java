@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
 		    	ShowQuipDialog(Quotes.GetRandomQuote());
 			}
 		});
+		checkAppRate();
 		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
 		//playSound(R.raw.shotgun);
     }
@@ -69,4 +70,9 @@ public class MainActivity extends Activity {
 		MediaPlayer player = MediaPlayer.create(this, soundID);
 		player.start();
 	}
+	private void checkAppRate() {
+		new com.pigdogbay.androidutils.apprate.AppRate(this)
+				.setMinDaysUntilPrompt(7).setMinLaunchesUntilPrompt(5)
+				.init();
+	}	
 }
