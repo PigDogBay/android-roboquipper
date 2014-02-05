@@ -8,10 +8,12 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener{
 
+	private TextView _Console;
 	private int[] _Sounds = {
 			R.raw.air_wrench,
 			R.raw.casing_dropped,
@@ -29,9 +31,10 @@ public class MainActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         wireUpButtons();
+        _Console = (TextView) findViewById(R.id.textViewConsole);
 		checkAppRate();
 		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
-		//playSound(R.raw.shotgun);
+		playSound(7);
     }
 	private void wireUpButtons(){
 		int[] btns = new int[]{R.id.btn1,R.id.btn2,R.id.btn3,R.id.btn4,R.id.btn4,R.id.btn6,R.id.btn7,R.id.btn8,R.id.btn9};
@@ -41,20 +44,11 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 	}
 	
-	private void ShowQuipDialog(String msg)
+	private void playSound(int soundIndex)
 	{
-		String title = getResources().getString(R.string.quip_title);
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_info).setTitle(title).setMessage(msg).setPositiveButton(
-                R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();		
-	}    
-	private void playSound(int soundID)
-	{
+		int soundID = _Sounds[soundIndex];
 		MediaPlayer player = MediaPlayer.create(this, soundID);
-		player.start();
+		//player.start();
 	}
 	private void checkAppRate() {
 		new com.pigdogbay.androidutils.apprate.AppRate(this)
@@ -64,7 +58,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		int soundIndex = Integer.parseInt((String)v.getTag());
-    	ShowQuipDialog(Quotes.GetRandomQuote());
-    	//playSound(_Sounds[soundIndex]);
+		_Console.setText(Quotes.GetRandomQuote());
+    	playSound(soundIndex);
 	}	
 }
