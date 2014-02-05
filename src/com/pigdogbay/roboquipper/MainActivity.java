@@ -1,20 +1,16 @@
 package com.pigdogbay.roboquipper;
 
-import java.util.Random;
-
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener{
 
 	private int[] _Sounds = {
 			R.raw.air_wrench,
@@ -27,27 +23,24 @@ public class MainActivity extends Activity {
 			R.raw.shotgun,
 			R.raw.shotgun_reload,
 			R.raw.sniper};
-	
-	Random _Random = new Random();
-
 	@Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-		((Button) findViewById(R.id.btnQuip)).setOnClickListener(new OnClickListener()
-		{
-			public void onClick(View v)
-			{
-				playRandomSound();
-		    	ShowQuipDialog(Quotes.GetRandomQuote());
-			}
-		});
+        wireUpButtons();
 		checkAppRate();
 		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
 		//playSound(R.raw.shotgun);
     }
-
+	private void wireUpButtons(){
+		int[] btns = new int[]{R.id.btn1,R.id.btn2,R.id.btn3,R.id.btn4,R.id.btn4,R.id.btn6,R.id.btn7,R.id.btn8,R.id.btn9};
+		for(int btn : btns)
+		{
+			((Button) findViewById(btn)).setOnClickListener(this);
+		}
+	}
+	
 	private void ShowQuipDialog(String msg)
 	{
 		String title = getResources().getString(R.string.quip_title);
@@ -58,13 +51,6 @@ public class MainActivity extends Activity {
                     }
                 }).show();		
 	}    
-   
-	
-	private void playRandomSound()
-	{
-		int index = _Random.nextInt(_Sounds.length);
-		playSound(_Sounds[index]);
-	}
 	private void playSound(int soundID)
 	{
 		MediaPlayer player = MediaPlayer.create(this, soundID);
@@ -74,5 +60,11 @@ public class MainActivity extends Activity {
 		new com.pigdogbay.androidutils.apprate.AppRate(this)
 				.setMinDaysUntilPrompt(7).setMinLaunchesUntilPrompt(5)
 				.init();
+	}
+	@Override
+	public void onClick(View v) {
+		int soundIndex = Integer.parseInt((String)v.getTag());
+    	ShowQuipDialog(Quotes.GetRandomQuote());
+    	//playSound(_Sounds[soundIndex]);
 	}	
 }
