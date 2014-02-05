@@ -17,14 +17,14 @@
         android:padding="5dp"
         android:text="@string/quip"
         />
+    
  <com.google.ads.AdView 
 		android:id="@+id/adView" 
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		ads:adUnitId="a150b4da2f327fa"
 		ads:adSize="SMART_BANNER"
-		ads:testDevices="TEST_EMULATOR, 7FDFE2A7093B4FE11D7C0794B8BDEAC2, 6E65810B3B431A1B553C14663938DA93"
+		ads:testDevices="TEST_EMULATOR, 7FDFE2A7093B4FE11D7C0794B8BDEAC2, 6E65810B3B431A1B553C14663938DA93, 87D716F858A130948AA505E5974BB51F"
 		ads:loadAdOnCreate="true"/>
     
-
 </LinearLayout>
