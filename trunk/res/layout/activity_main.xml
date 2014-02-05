@@ -4,19 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background = "@drawable/blue_gradient" >
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_weight="1"
-        android:padding="20dp"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/roboquipper" />
+    android:background = "#000" >
     <Button 
         android:id="@+id/btnQuip"
-        android:layout_weight="0"
         android:background="#A00"
         android:textColor="#FFF"
         android:layout_width="match_parent"
@@ -29,7 +19,6 @@
         />
  <com.google.ads.AdView 
 		android:id="@+id/adView" 
-        android:layout_weight="0"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		ads:adUnitId="a150b4da2f327fa"
