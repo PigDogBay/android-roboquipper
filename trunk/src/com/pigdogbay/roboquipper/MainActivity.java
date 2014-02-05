@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,8 +43,8 @@ public class MainActivity extends Activity {
 		    	ShowQuipDialog(Quotes.GetRandomQuote());
 			}
 		});
-		Toast.makeText(this, "Press Quip!", Toast.LENGTH_LONG).show();
-		playSound(R.raw.shotgun);
+		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
+		//playSound(R.raw.shotgun);
     }
 
 	private void ShowQuipDialog(String msg)
@@ -58,28 +57,7 @@ public class MainActivity extends Activity {
                     }
                 }).show();		
 	}    
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-    
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		Intent intent;
-		switch (item.getItemId())
-		{
-		case (R.id.menu_about):
-			intent = new Intent(this, AboutActivity.class);
-			startActivity(intent);
-			break;
-		default:
-			return false;
-		}
-		return true;
-	}   
+   
 	
 	private void playRandomSound()
 	{
