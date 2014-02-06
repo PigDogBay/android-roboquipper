@@ -1,0 +1,19 @@
+<resources>
+    <string name="version">Version 1.04.01</string>
+    <string name="app_name">RoboQuip</string>
+    <string name="title_activity_main">RoboQuip</string>
+    <string name="title_launcher">RoboQuip</string>
+    <string name="ok">OK</string>
+    <string name="quip_title">Quip</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_help">Help</string>
+    <string name="menu_about">About</string>
+    <string name="menu_help">Help</string>
+    <string name="email">pigdogbay@yahoo.co.uk</string>
+    <string name="website">http://www.pigdogbay.com</string>
+    <string name="facebookPage">http://www.facebook.com/pigdogbay</string>
+    <string name="twitter">http://www.twitter.com/pigdogbay</string>
+    <string name="blogger">http://pigdogbay.blogspot.co.uk</string>
+    <string name="market">http://play.google.com/store/search?q=pub:Pig Dog Bay</string>
+    <string name="quip">Quip!</string>
+</resources>
