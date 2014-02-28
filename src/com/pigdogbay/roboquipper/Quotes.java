@@ -27,7 +27,7 @@ public final class Quotes
 			"Okay Miller! \nDon't hurt the mayor! \nWe'll give you what you want!",
 			"Nobody ever takes me seriously! \nWe'll get serious now... \nand kiss the mayor's ass goodbye!",
 			"Nice shooting, son. \nWhat's your name?",
-			"Forget it, kid. \nThis guy's a serious asshole.",
+			"Forget it, kid. \nThis guy's a serious assh*@e.",
 			"Your client's a scumbag, \nyou're a scumbag, \nand scumbags see the judge \non Monday morning.",
 			"Now get out of my office, \nand take laughing boy with you!",
 			"Murphy, it's you!",
