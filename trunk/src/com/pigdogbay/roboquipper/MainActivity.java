@@ -1,21 +1,28 @@
 package com.pigdogbay.roboquipper;
 
+import java.io.IOException;
+
 import com.pigdogbay.roboquipper.StringScroller.StringScrollerCallBack;
 
+import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnClickListener, StringScrollerCallBack{
+public class MainActivity extends Activity implements OnClickListener, StringScrollerCallBack,SurfaceHolder.Callback{
 
 	public static final int CONSOLE_ROWS = 8;
 	private TextView[] _Console = new TextView[CONSOLE_ROWS]; 
 	private StringScroller _StringScroller;
+	private Camera _Camera;
+	
 	private int[] _Sounds = {
 			R.raw.air_wrench,
 			R.raw.casing_dropped,
@@ -36,13 +43,16 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
         _StringScroller._CallBack = this;
         wireUpButtons();
         wireUpTextViews();
+        SurfaceView surface = (SurfaceView)findViewById(R.id.surfaceView);
+        SurfaceHolder holder = surface.getHolder();
+        holder.addCallback(this);
+        
 		checkAppRate();
 		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
 		playSound(7);
     }
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		_StringScroller.Scroll(Quotes.getQuote(0));
 	}
@@ -74,7 +84,7 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
 	@Override
 	public void onClick(View v) {
 		int soundIndex = Integer.parseInt((String)v.getTag());
-		_StringScroller.Scroll(Quotes.GetRandomQuote());
+		_StringScroller.Scroll(Quotes.GetRandomQuote().toUpperCase());
     	playSound(soundIndex);
 	}
 	@Override
@@ -83,5 +93,23 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
 		{
 			_Console[i].setText(_StringScroller.get(i));
 		}
+	}
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+	}
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		try{
+			_Camera = Camera.open();
+			_Camera.setDisplayOrientation(90);
+			_Camera.setPreviewDisplay(holder);
+			_Camera.startPreview();
+		}catch (IOException e){}
+	}
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		_Camera.stopPreview();
+		_Camera.release();
 	}	
 }

@@ -1,11 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pigdogbay.roboquipper"
-    android:versionCode="10401"
-    android:versionName="1.04.01" 
+    android:versionCode="10501"
+    android:versionName="1.05.01" 
     android:installLocation="auto">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-  	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     
     <uses-sdk
         android:minSdkVersion="8"
