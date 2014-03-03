@@ -13,6 +13,7 @@ public class CameraUtils {
 	 * @return True if camera is present
 	 */
 	public static boolean checkCameraHardware(Context context) {
+		//Check for back facing and front facing camera 
 	    if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)
 	    		|| context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)){
 	        // this device has a camera
