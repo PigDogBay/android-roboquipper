@@ -1,27 +1,26 @@
 package com.pigdogbay.roboquipper;
 
-import java.io.IOException;
+import java.util.Locale;
 
 import com.pigdogbay.roboquipper.StringScroller.StringScrollerCallBack;
 
 import android.hardware.Camera;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnClickListener, StringScrollerCallBack,SurfaceHolder.Callback{
+public class MainActivity extends Activity implements OnClickListener, StringScrollerCallBack {
 
 	public static final int CONSOLE_ROWS = 8;
 	private TextView[] _Console = new TextView[CONSOLE_ROWS]; 
 	private StringScroller _StringScroller;
 	private Camera _Camera;
+	private CameraPreview _CameraPreview;
 	
 	private int[] _Sounds = {
 			R.raw.air_wrench,
@@ -43,10 +42,6 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
         _StringScroller._CallBack = this;
         wireUpButtons();
         wireUpTextViews();
-        SurfaceView surface = (SurfaceView)findViewById(R.id.surfaceView);
-        SurfaceHolder holder = surface.getHolder();
-        holder.addCallback(this);
-        
 		checkAppRate();
 		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
 		playSound(7);
@@ -55,6 +50,12 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
 	protected void onResume() {
 		super.onResume();
 		_StringScroller.Scroll(Quotes.getQuote(0));
+		setupCamera();
+	}
+	@Override
+	protected void onPause() {
+		super.onPause();
+		releaseCamera();
 	}
 	private void wireUpButtons(){
 		int[] btns = new int[]{R.id.btn1,R.id.btn2,R.id.btn3,R.id.btn4,R.id.btn5,R.id.btn6,R.id.btn7,R.id.btn8,R.id.btn9};
@@ -70,11 +71,21 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
 			_Console[i] = (TextView) findViewById(tvs[i]);
 		}
 	}
+	private void setupCamera(){
+        if (CameraUtils.checkCameraHardware(this))
+        {
+	        _Camera = CameraUtils.getCameraInstamce();
+	        _Camera.setDisplayOrientation(90);
+	        _CameraPreview = new CameraPreview(this, _Camera);
+	        FrameLayout layout = (FrameLayout)findViewById(R.id.camera_preview);
+	        layout.addView(_CameraPreview);
+        }
+	}
 	private void playSound(int soundIndex)
 	{
 		int soundID = _Sounds[soundIndex];
-		MediaPlayer player = MediaPlayer.create(this, soundID);
-		player.start();
+//		MediaPlayer player = MediaPlayer.create(this, soundID);
+//		player.start();
 	}
 	private void checkAppRate() {
 		new com.pigdogbay.androidutils.apprate.AppRate(this)
@@ -84,7 +95,7 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
 	@Override
 	public void onClick(View v) {
 		int soundIndex = Integer.parseInt((String)v.getTag());
-		_StringScroller.Scroll(Quotes.GetRandomQuote().toUpperCase());
+		_StringScroller.Scroll(Quotes.GetRandomQuote().toUpperCase(Locale.US));
     	playSound(soundIndex);
 	}
 	@Override
@@ -94,22 +105,15 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
 			_Console[i].setText(_StringScroller.get(i));
 		}
 	}
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-	}
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		try{
-			_Camera = Camera.open();
-			_Camera.setDisplayOrientation(90);
-			_Camera.setPreviewDisplay(holder);
-			_Camera.startPreview();
-		}catch (IOException e){}
-	}
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		_Camera.stopPreview();
-		_Camera.release();
-	}	
+	
+    private void releaseCamera(){
+        if (_Camera != null){
+            _Camera.release();
+            _Camera = null;
+        }
+        FrameLayout layout = (FrameLayout)findViewById(R.id.camera_preview);
+        layout.removeAllViews();
+        _CameraPreview = null;
+    }	
+	
 }
