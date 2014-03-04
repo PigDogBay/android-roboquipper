@@ -5,6 +5,7 @@ import java.util.Locale;
 import com.pigdogbay.roboquipper.StringScroller.StringScrollerCallBack;
 
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -88,8 +89,8 @@ public class MainActivity extends Activity implements OnClickListener, StringScr
 	private void playSound(int soundIndex)
 	{
 		int soundID = _Sounds[soundIndex];
-//		MediaPlayer player = MediaPlayer.create(this, soundID);
-//		player.start();
+		MediaPlayer player = MediaPlayer.create(this, soundID);
+		player.start();
 	}
 	private void checkAppRate() {
 		new com.pigdogbay.androidutils.apprate.AppRate(this)
