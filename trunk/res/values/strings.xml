@@ -1,5 +1,5 @@
 <resources>
-    <string name="version">Version 1.05.02</string>
+    <string name="version">Version 1.05.03</string>
     <string name="app_name">RoboQuip</string>
     <string name="title_activity_main">RoboQuip</string>
     <string name="title_launcher">RoboQuip</string>
