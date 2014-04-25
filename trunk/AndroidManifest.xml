@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pigdogbay.roboquipper"
-    android:versionCode="10503"
-    android:versionName="1.05.03" 
+    android:versionCode="10601"
+    android:versionName="1.06.01" 
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -17,6 +17,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+		<meta-data android:name="com.google.android.gms.version"
+               android:value="@integer/google_play_services_version"/>        
+        
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
@@ -28,8 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name="com.google.ads.AdActivity"
-                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>   
+		<activity android:name="com.google.android.gms.ads.AdActivity"
+		    	  android:windowSoftInputMode="stateAlwaysHidden|adjustResize|adjustPan"
+		          android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>        
         
     </application>
     
