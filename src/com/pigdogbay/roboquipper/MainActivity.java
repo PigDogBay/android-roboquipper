@@ -46,6 +46,9 @@ public class MainActivity extends Activity implements OnClickListener,
 		wireUpButtons();
 		wireUpTextViews();
 		setupAds();
+		//Get tracker - hopefully will auto track the activities
+		((RoboQuipApplication) getApplication()).getTracker();
+		
 		checkAppRate();
 		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
 		playSound(7);
