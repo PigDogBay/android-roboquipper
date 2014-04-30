@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.pigdogbay.roboquipper.StringScroller.StringScrollerCallBack;
 
 import android.hardware.Camera;
@@ -52,6 +53,17 @@ public class MainActivity extends Activity implements OnClickListener,
 		checkAppRate();
 		Toast.makeText(this, "Your Move Creep!", Toast.LENGTH_LONG).show();
 		playSound(7);
+	}
+	@Override
+	protected void onStart() {
+		super.onStart();
+		//Report the start of an Activity, so that it can be tracked by any Trackers that have enabled auto activity tracking
+		GoogleAnalytics.getInstance(this).reportActivityStart(this);
+	}
+	@Override
+	protected void onStop() {
+		super.onStop();
+		GoogleAnalytics.getInstance(this).reportActivityStop(this);;
 	}
 
 	private void setupAds() {
