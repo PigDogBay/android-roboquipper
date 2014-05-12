@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pigdogbay.roboquipper"
-    android:versionCode="10602"
-    android:versionName="1.06.02" 
+    android:versionCode="10701"
+    android:versionName="1.07.01" 
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.CAMERA"/>
